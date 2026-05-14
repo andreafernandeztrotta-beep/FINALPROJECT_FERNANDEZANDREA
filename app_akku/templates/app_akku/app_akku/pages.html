@@ -1,0 +1,43 @@
+{% extends "app_akku/app_akku/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-5" style="font-weight: 800;">Portfolio & Insights</h2>
+    
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                {% if post.imagen %}
+                    <img src="{{ post.imagen.url }}" class="card-img-top" alt="{{ post.titulo }}">
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title h5" style="font-weight: 700;">{{ post.titulo }}</h3>
+                    <p class="card-text text-muted">{{ post.subtitulo }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'post_detail' post.pk %}" class="btn btn-outline-dark btn-sm">Leer más</a>
+                        
+                        {% if user.is_authenticated %}
+                        <div>
+                            <a href="{% url 'post_update' post.pk %}" class="text-primary me-2">Editar</a>
+                            <a href="{% url 'post_delete' post.pk %}" class="text-danger">Borrar</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="text-muted">Todavía no hay publicaciones. ¡Entrá al /admin para cargar tu experiencia!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="text-center mt-4">
+        <a href="{% url 'post_create' %}" class="btn btn-dark">Crear Nuevo Post</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

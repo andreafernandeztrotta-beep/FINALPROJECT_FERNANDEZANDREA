@@ -1,0 +1,37 @@
+{% extends "app_akku/app_akku/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1 style="font-weight: 800; letter-spacing: -1px;">ACERCA DE MÍ</h1>
+    <hr style="border: 1px solid #000;">
+    
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <video width="100%" controls style="border: 3px solid #000; box-shadow: 10px 10px 0px #000;">
+                <source src="{% static 'app_akku/video_presentacion.mp4' %}" type="video/mp4">
+                Tu navegador no soporta el video.
+            </video>
+
+            <div class="text-start mt-5" style="line-height: 1.6;">
+                <h3 style="font-weight: 700; border-left: 5px solid #000; padding-left: 15px; margin-bottom: 25px;">
+                    Andrea Fernández Trotta | Akkü Studio Lab
+                </h3>
+                
+                <p style="font-size: 1.15rem;">
+                    Diseño sistemas de crecimiento <strong>AI-Native</strong> con foco en Ciberseguridad, automatización de procesos y protección de datos. 
+                    Mi enfoque combina el rigor de I+D+i con la ejecución técnica: desarrollo flujos de trabajo automatizados con IA para detectar vulnerabilidades, optimizar la trazabilidad y asegurar la infraestructura contra ataques.
+                </p>
+
+                <p style="font-size: 1.15rem;">
+                    Abordo problemas complejos desde la lógica de <strong>Ciberseguridad por diseño</strong>: diagnóstico, implementación de defensas y auditoría técnica de impacto. Traduzco necesidades críticas en sistemas blindados y escalables. Actualmente profundizo en arquitecturas de LLMs para construir defensas inteligentes contra vectores de ataque modernos.
+                </p>
+
+                <p style="font-size: 1.15rem; background-color: #f1f1f1; padding: 20px; border-right: 5px solid #000;">
+                    En <strong>Akkü Studio Lab</strong>, mi propósito es transformar la seguridad de un costo operativo en una ventaja competitiva mediante la <strong>resiliencia proactiva</strong>. Al integrar IA y Ciberseguridad desde la primera línea de código, permito que las organizaciones escalen con la confianza de que su activo más valioso está protegido por una arquitectura inteligente.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

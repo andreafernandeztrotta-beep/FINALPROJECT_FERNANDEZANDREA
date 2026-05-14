@@ -1,0 +1,111 @@
+{% extends "app_akku/app_akku/base.html" %}
+
+{% block content %}
+<div class="container mt-5" id="contenedor-principal">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="fw-bold">Resultados para: "{{ query }}"</h2>
+            <hr>
+
+            {% if resultados %}
+                {% for item in resultados %}
+                <div class="card mb-4 border-dark shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger fw-bold">{{ item.nombre }}</h5>
+                        <p class="card-text text-muted">{{ item.descripcion }}</p>
+                        <h4 class="fw-bold">Precio: $150.00</h4>
+                        <button class="btn btn-success mt-2 btn-agregar" 
+                                data-nombre="{{ item.nombre }}" 
+                                data-precio="150">
+                            🛒 Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning">
+                    No se encontraron resultados para "{{ query }}". 
+                </div>
+            {% endif %}
+            
+            <div class="mt-3">
+                <a href="{% url 'index' %}" class="btn btn-outline-secondary">← Volver</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="seccion-carrito" class="card border-primary sticky-top" style="top: 20px;">
+                <div class="card-header bg-primary text-white fw-bold">TU CARRITO</div>
+                <div class="card-body">
+                    <ul id="lista-carrito" class="list-group list-group-flush mb-3"></ul>
+                    <hr>
+                    <h5 class="fw-bold">Total: $<span id="total-carrito">0.00</span></h5>
+                    <div class="d-grid gap-2 mt-3">
+                        <button id="btn-finalizar" class="btn btn-danger fw-bold">Finalizar Contratación</button>
+                        <button id="btn-vaciar" class="btn btn-outline-secondary btn-sm">Vaciar Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mensaje-gracias" class="container mt-5 d-none text-center py-5">
+    <div class="card border-success shadow-lg p-5">
+        <h1 class="display-3 text-success">¡Gracias!</h1>
+        <a href="{% url 'index' %}" onclick="localStorage.clear()" class="btn btn-primary btn-lg">Inicio</a>
+    </div>
+</div>
+
+<script>
+    let carrito = JSON.parse(localStorage.getItem('carrito_akku')) || [];
+    
+    function actualizarVista() {
+        const lista = document.getElementById('lista-carrito');
+        const totalDisp = document.getElementById('total-carrito');
+        if(!lista) return;
+        lista.innerHTML = '';
+        let total = 0;
+        if (carrito.length === 0) {
+            lista.innerHTML = '<li class="list-group-item text-muted text-center small">Vacío</li>';
+        } else {
+            carrito.forEach(item => {
+                total += item.precio;
+                lista.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center small">
+                    ${item.nombre} <span class="badge bg-danger">$${item.precio}</span>
+                </li>`;
+            });
+        }
+        totalDisp.innerText = total.toFixed(2);
+        localStorage.setItem('carrito_akku', JSON.stringify(carrito));
+    }
+
+    document.querySelectorAll('.btn-agregar').forEach(boton => {
+        boton.addEventListener('click', () => {
+            carrito.push({ nombre: boton.getAttribute('data-nombre'), precio: 150 });
+            actualizarVista();
+        });
+    });
+
+    document.getElementById('btn-vaciar').addEventListener('click', () => {
+        carrito = [];
+        actualizarVista();
+    });
+
+    document.getElementById('btn-finalizar').addEventListener('click', () => {
+        if (carrito.length > 0) {
+            document.getElementById('contenedor-principal').classList.add('d-none');
+            document.getElementById('mensaje-gracias').classList.remove('d-none');
+            localStorage.clear();
+        }
+    });
+    actualizarVista();
+</script>
+{% endblock %}
+
+
+
+
+
+
+
