@@ -27,7 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'pages' %}">Pages</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Acerca de mí</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'contacto_cliente' %}">Consultas</a></li>
-                    
+
                     {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'mensajes' %}">Mensajes</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'perfil' %}">Perfil</a></li>
@@ -39,6 +39,7 @@
                         </li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registrarse</a></li>
                     {% endif %}
                 </ul>
             </div>

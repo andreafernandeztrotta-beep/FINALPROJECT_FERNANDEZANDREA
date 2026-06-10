@@ -1,0 +1,21 @@
+{% extends "app_akku/app_akku/base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card" style="border-radius: 0; border: 2px solid #000; box-shadow: 15px 15px 0px #000;">
+            <div class="card-header bg-white" style="border-bottom: 2px solid #000;">
+                <h2 class="mb-0" style="font-weight: 800;">ELIMINAR POST</h2>
+            </div>
+            <div class="card-body" style="padding: 30px;">
+                <p>¿Estás segura de que querés eliminar el post <strong>"{{ object.titulo }}"</strong>?</p>
+                <p class="text-muted">Esta acción no se puede deshacer.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-akku" style="border-radius: 0;">SÍ, ELIMINAR</button>
+                    <a href="{% url 'pages' %}" class="btn btn-outline-dark" style="border-radius: 0;">CANCELAR</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

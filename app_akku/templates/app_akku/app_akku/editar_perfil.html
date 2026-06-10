@@ -2,11 +2,16 @@
 {% block content %}
 <div class="container mt-5">
     <h2 style="font-weight: 800; border-bottom: 2px solid #000; padding-bottom: 10px;">EDITAR MI PERFIL</h2>
-    <form method="post" class="mt-4">
+    <form method="post" enctype="multipart/form-data" class="mt-4">
         {% csrf_token %}
-        {{ form.as_p }}
+        <h5 style="font-weight: 800;">Datos de la cuenta</h5>
+        {{ user_form.as_p }}
+        <hr style="border-top: 2px solid #000;">
+        <h5 style="font-weight: 800;">Perfil (avatar y biografía)</h5>
+        {{ perfil_form.as_p }}
         <button type="submit" class="btn btn-dark" style="border-radius: 0;">GUARDAR CAMBIOS</button>
         <a href="{% url 'perfil' %}" class="btn btn-outline-secondary" style="border-radius: 0;">CANCELAR</a>
+        <a href="{% url 'cambiar_password' %}" class="btn btn-outline-dark" style="border-radius: 0; float: right;">CAMBIAR CONTRASEÑA</a>
     </form>
 </div>
 {% endblock %}
